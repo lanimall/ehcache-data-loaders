@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
+	monitoring="autodetect" dynamicConfig="true" name="CacheMgrUnderTest">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<terracottaConfig url="tcvm:9510,tcvm:9610" rejoin="true" />
+
+	<defaultCache eternal="false" maxElementsInMemory="100000"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" maxElementsOnDisk="10000000" />
+
+	<cache name="LoadingTarget" maxEntriesLocalHeap="100000" eternal="true" maxEntriesInCache="14000000">
+		<terracotta>
+			<nonstop enabled="true" immediateTimeout="true"
+				timeoutMillis="30000">
+				<timeoutBehavior type="exception" />
+			</nonstop>
+		</terracotta>
+	</cache>
+</ehcache>
